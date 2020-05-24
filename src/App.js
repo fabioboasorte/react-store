@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component, Fragment } from 'react';
+import 'materialize-css/dist/css/materialize.min.css';
+import Tabela from './Tabela';
+import Data from './Data';
+import Formulario from './Formulario';
+import Header from './Header';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+
+  state = {
+    autores: Data().autores,
+  };
+
+  removeAutor = index => {
+    const { autores } = this.state;
+
+    this.setState({
+      autores: autores.filter((autor, posAtual) => {
+        return posAtual !== index;
+      }),
+    });
+  }
+
+  submitListener = autor => {
+    this.setState({
+      autores : [...this.state.autores, autor]
+    })
+  }
+
+  render() {
+    return (
+      <Fragment>
+        <Header />
+        <div className="container">
+          <Tabela 
+            autores = { this.state.autores } 
+            removeAutor = { this.removeAutor } 
+          />
+          <Formulario 
+            submitListener = { this.submitListener }
+          />
+        </div>
+      </Fragment>
+    )
+  }
 }
 
 export default App;
