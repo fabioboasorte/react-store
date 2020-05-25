@@ -3,10 +3,10 @@ import ReactDOM from 'react-dom';
 import './assets/index.css';
 
 import App from './App';
-import Sobre from './Sobre';
-import Livros from './Livros';
-import Autores from './Autores';
-import NotFound from './NotFound';
+import Sobre from './routes/Sobre';
+import Livros from './routes/Livros';
+import Autores from './routes/Autores';
+import NotFound from './routes/NotFound';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
