@@ -1,7 +1,8 @@
 import React, { Component, Fragment } from 'react';
-import Header from './Header';
+import Header from './components/Header';
+import PopUp from './components/PopUp';
+
 import Data from './Data';
-import PopUp from './PopUp';
 
 const TableBody = props => {
   

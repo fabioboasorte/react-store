@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import Header from './Header';
+import Header from './components/Header';
 
 const Sobre = () => {
 
