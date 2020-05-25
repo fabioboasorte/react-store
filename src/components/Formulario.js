@@ -54,7 +54,6 @@ class Formulario extends Component {
 
       this.props.submitListener(this.state);
       this.setState(this.stateInicial);
-      PopUp.exibeMensagem('success', 'Novo item adicionado!');
     }
     else {
       
@@ -65,7 +64,7 @@ class Formulario extends Component {
         return elem.isInvalid;
       });
       camposInvalidos.forEach(campo => {
-        PopUp.exibeMensagem('error', campo.message);
+        PopUp.show('error', campo.message);
       });
     }
   }

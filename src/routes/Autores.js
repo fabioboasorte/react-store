@@ -1,21 +1,14 @@
 import React, { Component, Fragment } from 'react';
 import Header from '../components/Header';
 import PopUp from '../components/PopUp';
-
-import Data from '../Data';
+import ApiService from '../ApiService';
 
 const TableBody = props => {
   
-  const linhas = props.autores.map((linha, index) => {
+  const linhas = props.autores.map((linha) => {
     return (
-      <tr key={index}>
-        <td width="80%">{linha.nome}</td>
-        <td width="20%">
-          <button className="waves-effect waves-light indigo lighten-2 btn"
-            onClick = {() => { props.removeItem(index) }}>
-            Remover
-          </button>
-        </td>
+      <tr key={linha.id}>
+        <td>{linha.nome}</td>
       </tr>
     )
   });
@@ -29,28 +22,25 @@ const TableBody = props => {
 
 class Autores extends Component {
 
-	state = {
-    autores: Data().autores,
-	};
-	
-	removeItem = index => {
-    const { autores } = this.state;
+	constructor(props) {
+    super(props);
 
-    this.setState({
-      autores: autores.filter((autor, posAtual) => {
-        if (posAtual === index) {
-          PopUp.exibeMensagem('error', 'Item removido com sucesso');
-        }
-
-        return posAtual !== index;
-      }),
-    });
+    this.state = {
+      nomes: [],
+      titulo: 'Autores'
+    }
   }
 
-  submitListener = autor => {
-    this.setState({
-      autores : [...this.state.autores, autor]
-    })
+  componentDidMount() {
+
+    ApiService.ListaAutores()
+      .then(res => ApiService.TrataErros(res))
+      .then(res => {
+        if (res.message === 'success') {
+          this.setState({ nomes : [...this.state.nomes, ...res.data] });
+        }
+      })
+      .catch(() => PopUp.show('error', 'Problema na comunicação com a Api.'));
   }
 
 	render() {
@@ -60,17 +50,13 @@ class Autores extends Component {
 				<Header />
 				<div className="container">
 					<h1>Autores</h1>
-					<table className="highlight">
+					<table className="highlight centered">
 						<thead>
 							<tr>
-								<th width="80%">Autores</th>
-								<th width="20%">Remover</th>
+								<th>Autores</th>
 							</tr>
 						</thead>
-						<TableBody 
-							autores = { this.state.autores } 
-							removeItem = { this.removeItem } 
-						/>
+						<TableBody autores = { this.state.nomes } />
 					</table>
 				</div>
 			</Fragment>

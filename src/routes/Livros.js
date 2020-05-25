@@ -1,21 +1,14 @@
 import React, { Component, Fragment } from 'react';
 import Header from '../components/Header';
 import PopUp from '../components/PopUp';
-
-import Data from '../Data';
+import ApiService from '../ApiService';
 
 const TableBody = props => {
 
-	const linhas = props.autores.map((linha, index) => {
+	const linhas = props.livros.map((linha) => {
 		return (
-			<tr key={index}>
-				<td width="80%">{linha.livro}</td>
-				<td width="20%">
-					<button className="waves-effect waves-light indigo lighten-2 btn"
-						onClick={() => { props.removeItem(index) }}>
-						Remover
-          </button>
-				</td>
+			<tr key={linha.id}>
+				<td>{linha.livro}</td>
 			</tr>
 		)
 	});
@@ -29,28 +22,24 @@ const TableBody = props => {
 
 class Autores extends Component {
 
-	state = {
-		autores: Data().autores,
-	};
+	constructor(props) {
+		super(props);
 
-	removeItem = index => {
-		const { autores } = this.state;
-
-		this.setState({
-			autores: autores.filter((autor, posAtual) => {
-				if (posAtual === index) {
-					PopUp.exibeMensagem('error', 'Item removido com sucesso');
-				}
-
-				return posAtual !== index;
-			}),
-		});
+		this.state = {
+			livros: [],
+			titulo: 'Livros'
+		}
 	}
 
-	submitListener = autor => {
-		this.setState({
-			autores: [...this.state.autores, autor]
-		})
+	componentDidMount() {
+		ApiService.ListaLivros()
+			.then(res => ApiService.TrataErros(res))
+			.then(res => {
+				if (res.message === 'success') {
+					this.setState({ livros : [...this.state.livros, ...res.data] });
+				}
+			})
+			.catch(() => PopUp.show('error', 'Problema na comunicação com a Api.'));
 	}
 
 	render() {
@@ -60,17 +49,13 @@ class Autores extends Component {
 				<Header />
 				<div className="container">
 					<h1>Livros</h1>
-					<table className="highlight">
+					<table className="highlight centered">
 						<thead>
 							<tr>
-								<th width="80%">Livros</th>
-								<th width="20%">Remover</th>
+								<th>Livros</th>
 							</tr>
 						</thead>
-						<TableBody
-							autores={this.state.autores}
-							removeItem={this.removeItem}
-						/>
+						<TableBody livros={this.state.livros} />
 					</table>
 				</div>
 			</Fragment>

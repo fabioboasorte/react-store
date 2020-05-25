@@ -6,35 +6,62 @@ import Formulario from './components/Formulario';
 import Header from './components/Header';
 import PopUp from './components/PopUp';
 
-import Data from './Data';
+import ApiService from './ApiService';
 
 class App extends Component {
 
-  state = {
-    autores: Data().autores,
-  };
+  constructor(props) {
+    super(props);
 
-  removeAutor = index => {
+    this.state = {
+      autores: [],
+    };
+  }
+
+  removeAutor = id => {
     const { autores } = this.state;
 
-    this.setState({
-      autores: autores.filter((autor, posAtual) => {
-        if (posAtual === index) {
-          PopUp.exibeMensagem('success', 'Item removido com sucesso');
-        }
-
-        return posAtual !== index;
-      }),
+    const autoresAtualizado = autores.filter(autor => {
+      return autor.id !== id
     });
+
+    ApiService.RemoveAutor(id)
+      .then(res => ApiService.TrataErros(res))
+      .then(res => {
+        if(res.message === 'deleted') {
+          this.setState({autores : [...autoresAtualizado]})
+          PopUp.show('success', 'Item removido com sucesso');
+        }
+      })
+      .catch(() => PopUp.show('error', 'Problema na comunicação com a Api.'));
   }
 
   submitListener = autor => {
-    this.setState({
-      autores : [...this.state.autores, autor]
-    })
+
+    ApiService.CriaAutor(JSON.stringify(autor))
+      .then(res => ApiService.TrataErros(res))
+      .then(res => {
+        if(res.message === 'success') {
+          this.setState({ autores : [...this.state.autores, autor] });
+          PopUp.show('success', 'Autor adicionado com sucesso!');
+        }
+      })
+      .catch(() => PopUp.show('error', 'Problema na comunicação com a Api.'));
+  }
+
+  componentDidMount() {
+    ApiService.ListaAutores()
+      .then(res => ApiService.TrataErros(res))
+      .then(res => {
+        if(res.message === 'success') {
+          this.setState({autores : [...this.state.autores, ...res.data]});
+        }
+      })
+      .catch(() => PopUp.show('error', 'Problema na comunicação com a Api.'));
   }
 
   render() {
+
     return (
       <Fragment>
         <Header />
@@ -44,9 +71,7 @@ class App extends Component {
             autores = { this.state.autores } 
             removeAutor = { this.removeAutor } 
           />
-          <Formulario 
-            submitListener = { this.submitListener }
-          />
+          <Formulario submitListener = { this.submitListener } />
         </div>
       </Fragment>
     )
