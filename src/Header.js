@@ -1,15 +1,23 @@
 import React from 'react';
+import LinkWrapper from './LinkWrapper';
 
 const Header = () => {
 
 	return (
 		<nav>
 			<div className="nav-wrapper indigo lighten-2">
-				<a href="/" className="brand-logo">ReactStore</a>
+				<LinkWrapper 
+					to="/" 
+					exact={true} 
+					className="brand-logo ml-10"
+					activeStyle={{}}>
+						ReactStore
+				</LinkWrapper>
 				<ul className="right">
-					<li><a href="/autores">Autores</a></li>
-					<li><a href="/livros">Livros</a></li>
-					<li><a href="/sobre">Sobre</a></li>
+					<li><LinkWrapper to='/' exact={true}>Home</LinkWrapper></li>
+					<li><LinkWrapper to="/autores">Autores</LinkWrapper></li>
+					<li><LinkWrapper to="/livros">Livros</LinkWrapper></li>
+					<li><LinkWrapper to="/sobre">Sobre</LinkWrapper></li>
 				</ul>
 			</div>
 		</nav>
