@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react';
-import Header from '../components/Header';
-import PopUp from '../components/PopUp';
-import ApiService from '../ApiService';
+import Header from '../Components/Header';
+import PopUp from '../Utils/PopUp';
+import ApiService from '../Utils/ApiService';
 
 const TableBody = props => {
 
@@ -33,7 +33,6 @@ class Autores extends Component {
 
 	componentDidMount() {
 		ApiService.ListaLivros()
-			.then(res => ApiService.TrataErros(res))
 			.then(res => {
 				if (res.message === 'success') {
 					this.setState({ livros : [...this.state.livros, ...res.data] });

@@ -1,4 +1,4 @@
-import M from 'materialize-css';
+import M from '../../node_modules/materialize-css';
 
 const PopUp = {
 
