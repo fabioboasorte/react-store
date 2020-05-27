@@ -1,12 +1,13 @@
-import React, { Component, Fragment } from 'react';
-import 'materialize-css/dist/css/materialize.min.css';
-import '../../Pages/Home/Home.css';
+import React, { Component } from 'react';
+import Container from '@material-ui/core/Container';
+
 import Tabela from '../../Components/Tabela';
 import Formulario from '../../Components/Formulario';
 import Header from '../../Components/Header';
 
 import PopUp from '../../Utils/PopUp';
 import ApiService from '../../Utils/ApiService';
+
 
 class Home extends Component {
 
@@ -19,7 +20,7 @@ class Home extends Component {
   }
 
   removeAutor = id => {
-    
+
     const { autores } = this.state;
 
     const autoresAtualizado = autores.filter(autor => {
@@ -28,8 +29,8 @@ class Home extends Component {
 
     ApiService.RemoveAutor(id)
       .then(res => {
-        if(res.message === 'deleted') {
-          this.setState({autores : [...autoresAtualizado]})
+        if (res.message === 'deleted') {
+          this.setState({ autores: [...autoresAtualizado] })
           PopUp.show('success', 'Item removido com sucesso');
         }
       })
@@ -40,8 +41,8 @@ class Home extends Component {
 
     ApiService.CriaAutor(JSON.stringify(autor))
       .then(res => {
-        if(res.message === 'success') {
-          this.setState({ autores : [...this.state.autores, autor] });
+        if (res.message === 'success') {
+          this.setState({ autores: [...this.state.autores, autor] });
           PopUp.show('success', 'Autor adicionado com sucesso!');
         }
       })
@@ -51,8 +52,8 @@ class Home extends Component {
   componentDidMount() {
     ApiService.ListaAutores()
       .then(res => {
-        if(res.message === 'success') {
-          this.setState({autores : [...this.state.autores, ...res.data]});
+        if (res.message === 'success') {
+          this.setState({ autores: [...this.state.autores, ...res.data] });
         }
       })
       .catch(() => PopUp.show('error', 'Problema na comunicação com a Api.'));
@@ -61,17 +62,17 @@ class Home extends Component {
   render() {
 
     return (
-      <Fragment>
+      <React.Fragment>
         <Header />
-        <div className="container">
+        <Container maxWidth="lg">
           <h1>ReactStore</h1>
-          <Tabela 
-            autores = { this.state.autores } 
-            removeAutor = { this.removeAutor } 
+          <Tabela
+            autores={this.state.autores}
+            removeAutor={this.removeAutor}
           />
-          <Formulario submitListener = { this.submitListener } />
-        </div>
-      </Fragment>
+          <Formulario submitListener={this.submitListener} />
+        </Container>
+      </React.Fragment>
     )
   }
 }

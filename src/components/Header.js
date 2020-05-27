@@ -1,26 +1,38 @@
 import React from 'react';
-import LinkWrapper from '../Utils/LinkWrapper';
+
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+
+import Menu from './Menu';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+  },
+  title: {
+		flexGrow: 1,
+  },
+}));
 
 const Header = () => {
+	const classes = useStyles();
 
 	return (
-		<nav>
-			<div className="nav-wrapper indigo lighten-2">
-				<LinkWrapper 
-					to="/" 
-					exact={true} 
-					className="brand-logo ml-10"
-					activeStyle={{}}>
-						ReactStore
-				</LinkWrapper>
-				<ul className="right">
-					<li><LinkWrapper to='/' exact={true}>Home</LinkWrapper></li>
-					<li><LinkWrapper to="/autores">Autores</LinkWrapper></li>
-					<li><LinkWrapper to="/livros">Livros</LinkWrapper></li>
-					<li><LinkWrapper to="/sobre">Sobre</LinkWrapper></li>
-				</ul>
-			</div>
-		</nav>
+		<AppBar position="static">
+			<Toolbar>
+				<Menu />
+				<Typography variant="h6" className={classes.title}>
+					ReactStore
+    		</Typography>
+				<Button href="/" color="inherit">Login/Cadastro</Button>
+			</Toolbar>
+		</AppBar>
 	);
 }
 

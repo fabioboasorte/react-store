@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import FormValidator from '../Utils/FormValidator';
 import PopUp from '../Utils/PopUp';
 
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+
 class Formulario extends Component {
 
   constructor(props) {
@@ -23,7 +26,7 @@ class Formulario extends Component {
       {
         campo: 'preco',
         metodo: 'isInt',
-        args: [{min: 0, max: 99999}],
+        args: [{ min: 0, max: 99999 }],
         validoQuando: true,
         mensagem: 'Entre com um valor numérico'
       }
@@ -56,8 +59,8 @@ class Formulario extends Component {
       this.setState(this.stateInicial);
     }
     else {
-      
-      const {nome, livro, preco} = validacao;
+
+      const { nome, livro, preco } = validacao;
       const campos = [nome, livro, preco];
 
       const camposInvalidos = campos.filter(elem => {
@@ -74,48 +77,12 @@ class Formulario extends Component {
     const { nome, livro, preco } = this.state;
 
     return (
-      <form>
-        <div className="row">
-          <div className="input-field col s4">
-            <input
-              id="nome"
-              type="text"
-              name="nome"
-              value={nome}
-              onChange={this.inputListener}
-              className="validate"
-            />
-            <label htmlFor="nome">Nome</label>
-          </div>
-          <div className="input-field col s4">
-            <input
-              id="livro"
-              type="text"
-              name="livro"
-              value={livro}
-              onChange={this.inputListener}
-              className="validate"
-            />
-            <label htmlFor="livro">Livro</label>
-          </div>
-          <div className="input-field col s4">
-            <input
-              id="preco"
-              type="text"
-              name="preco"
-              value={preco}
-              onChange={this.inputListener}
-              className="validate"
-            />
-            <label htmlFor="preco">Preço</label>
-          </div>
-        </div>
-        <button 
-          className="waves-effect waves-light indigo lighten-2 btn"
-          type="button" 
-          onClick={this.submitFormulario}>
-          Salvar
-        </button>
+      <form className={{}} noValidate autoComplete="off">
+        <h3>Inserir novo item:</h3>
+        <TextField size="small" label="Nome" variant="outlined" name="nome" value={nome} onChange={this.inputListener} />
+        <TextField size="small" label="Livro" variant="outlined" name="livro" value={livro} onChange={this.inputListener} />
+        <TextField size="small" label="Preço" variant="outlined" name="preco" value={preco} onChange={this.inputListener} />
+        <Button onClick={this.submitFormulario} variant="outlined">Salvar</Button>
       </form>
     );
   }

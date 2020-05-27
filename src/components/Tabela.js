@@ -1,52 +1,67 @@
 import React, { Component } from 'react';
 
-const TableHead = () => {
-  return (
-    <thead>
-      <tr>
-        <th>Autores</th>
-        <th>Livros</th>
-        <th>Preço</th>
-        <th>Remover</th>
-      </tr>
-    </thead>
-  );
-}
+import { makeStyles } from '@material-ui/core/styles';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 
-const TableBody = props => {
-  
-  const linhas = props.autores.map((linha) => {
-    return (
-      <tr key={linha.id}>
-        <td>{linha.nome}</td>
-        <td>{linha.livro}</td>
-        <td>{linha.preco}</td>
-        <td>
-          <button className="waves-effect waves-light indigo lighten-2 btn"
-            onClick = {() => { props.removeAutor(linha.id) }}>
-            Remover
-          </button>
-        </td>
-      </tr>
-    )
-  });
+import DeleteIcon from '@material-ui/icons/Delete';
+import Button from '@material-ui/core/Button';
 
-  return (
-    <tbody>
-      {linhas}
-    </tbody>
-  );
-}
+const useStyles = makeStyles({
+  table: {
+    minWidth: 650,
+  },
+});
 
 class Tabela extends Component {
 
   render() {
+
     const { autores, removeAutor } = this.props;
+
+    // const classes = useStyles();
+
     return (
-      <table className="centered highlight">
-        <TableHead />
-        <TableBody autores = { autores } removeAutor = { removeAutor } />
-      </table>
+      <TableContainer component={Paper}>
+        <Table className={{}} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Autores</TableCell>
+              <TableCell>Livros</TableCell>
+              <TableCell align="center">Preços</TableCell>
+              <TableCell align="center">Remover</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {autores.map((item) => (
+              <TableRow key={item.id}>
+                <TableCell>{item.nome}</TableCell>
+                <TableCell>{item.livro}</TableCell>
+                <TableCell align="center">{item.preco}</TableCell>
+                <TableCell align="center">
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    className={{}}
+                    startIcon={<DeleteIcon />}
+                    onClick={() => { removeAutor(item.id) }}>
+                    Remover
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+      // <table className="centered highlight">
+      //   <TableHead />
+      //   <TableBody autores={autores} removeAutor={removeAutor} />
+      // </table>
     );
   }
 }
