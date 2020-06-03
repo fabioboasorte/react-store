@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import Container from '@material-ui/core/Container';
 
-import Tabela from '../../Components/Tabela';
+import TabelaHome from '../../Components/Tabela/TabelaHome';
 import Formulario from '../../Components/Formulario';
 import Header from '../../Components/Header';
+import Footer from '../../Components/Footer';
 
-import PopUp from '../../Utils/PopUp';
 import ApiService from '../../Utils/ApiService';
 
 
@@ -31,10 +31,10 @@ class Home extends Component {
       .then(res => {
         if (res.message === 'deleted') {
           this.setState({ autores: [...autoresAtualizado] })
-          PopUp.show('success', 'Item removido com sucesso');
+          window.toastOpen({ messages: [{msg:'Item removido com sucesso'}], severity: 'success' });
         }
       })
-      .catch(() => PopUp.show('error', 'Problema na comunicação com a Api.'));
+      .catch(() => window.toastOpen({ messages: [{msg:'Problema na comunicação com a Api.'}], severity: 'error' }));
   }
 
   submitListener = autor => {
@@ -43,10 +43,10 @@ class Home extends Component {
       .then(res => {
         if (res.message === 'success') {
           this.setState({ autores: [...this.state.autores, autor] });
-          PopUp.show('success', 'Autor adicionado com sucesso!');
+          window.toastOpen({ messages: [{msg:'Novo item adicionado com sucesso!'}], severity: 'success' });
         }
       })
-      .catch(() => PopUp.show('error', 'Problema na comunicação com a Api.'));
+      .catch(() => window.toastOpen({ messages: [{msg:'Problema na comunicação com a Api.'}], severity: 'error' }));
   }
 
   componentDidMount() {
@@ -56,7 +56,7 @@ class Home extends Component {
           this.setState({ autores: [...this.state.autores, ...res.data] });
         }
       })
-      .catch(() => PopUp.show('error', 'Problema na comunicação com a Api.'));
+      .catch(() => window.toastOpen({ messages: [{msg:'Problema na comunicação com a Api.'}], severity: 'error' }));
   }
 
   render() {
@@ -66,12 +66,13 @@ class Home extends Component {
         <Header />
         <Container maxWidth="lg">
           <h1>ReactStore</h1>
-          <Tabela
+          <TabelaHome
             autores={this.state.autores}
             removeAutor={this.removeAutor}
           />
           <Formulario submitListener={this.submitListener} />
         </Container>
+        <Footer />
       </React.Fragment>
     )
   }

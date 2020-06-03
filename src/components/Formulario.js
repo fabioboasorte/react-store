@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import FormValidator from '../Utils/FormValidator';
-import PopUp from '../Utils/PopUp';
-
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
@@ -66,9 +64,14 @@ class Formulario extends Component {
       const camposInvalidos = campos.filter(elem => {
         return elem.isInvalid;
       });
+
+      let messages = [];
+
       camposInvalidos.forEach(campo => {
-        PopUp.show('error', campo.message);
+        messages.push({msg: campo.message});
       });
+
+      window.toastOpen({ messages: messages, severity: 'error' });
     }
   }
 
@@ -77,7 +80,7 @@ class Formulario extends Component {
     const { nome, livro, preco } = this.state;
 
     return (
-      <form className={{}} noValidate autoComplete="off">
+      <form noValidate autoComplete="off">
         <h3>Inserir novo item:</h3>
         <TextField size="small" label="Nome" variant="outlined" name="nome" value={nome} onChange={this.inputListener} />
         <TextField size="small" label="Livro" variant="outlined" name="livro" value={livro} onChange={this.inputListener} />
