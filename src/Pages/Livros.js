@@ -4,6 +4,7 @@ import PopUp from '../Utils/PopUp';
 import ApiService from '../Utils/ApiService';
 import TabelaSimples from '../Components/Tabela/TabelaSimples';
 import Container from '@material-ui/core/Container';
+import Footer from '../Components/Footer';
 
 class Livros extends Component {
 
@@ -34,6 +35,7 @@ class Livros extends Component {
 						field='livro'
 						dados={this.state.data}
 					/>
+					<Footer />
 				</Container>
 			</Fragment>
 		);

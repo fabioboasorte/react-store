@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
 
-const PopUp = () => {
+// const PopUp = () => {
 
-}
+// }
 
-export default PopUp;
+// export default PopUp;

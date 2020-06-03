@@ -75,7 +75,7 @@ const Toast = () => {
 
 export default Toast;
 
-{/* 
+/* 
 <Button variant="outlined" onClick={this.props.handleOpen}>
 Open success snackbar
 </Button> 
@@ -83,4 +83,4 @@ Open success snackbar
 <Alert severity="warning">This is a warning message!</Alert>
 <Alert severity="info">This is an information message!</Alert>
 <Alert severity="success">This is a success message!</Alert>
-*/}
+*/

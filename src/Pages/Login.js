@@ -3,6 +3,7 @@ import Header from '../Components/Header';
 // import PopUp from '../Utils/PopUp';
 // import ApiService from '../Utils/ApiService';
 import Container from '@material-ui/core/Container';
+import Footer from '../Components/Footer';
 
 class Login extends Component {
 
@@ -18,6 +19,7 @@ class Login extends Component {
 				<Header />
 				<Container maxWidth="lg">
 					<h1>Login</h1>
+					<Footer />
 				</Container>
 			</Fragment>
 		);

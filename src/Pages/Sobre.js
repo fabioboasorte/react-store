@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import Header from '../Components/Header';
+import Footer from '../Components/Footer';
 import Container from '@material-ui/core/Container';
 
 const Sobre = () => {
@@ -29,6 +30,10 @@ const Sobre = () => {
 					 recentemente quando passou a ser integrado a softwares de editoração eletrônica
 					 como Aldus PageMaker.
 				</p>
+
+				<hr style={{opacity:'0.3'}} />
+
+				<Footer />
 			</Container>
 		</Fragment >
 	)

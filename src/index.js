@@ -13,7 +13,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <BrowserRouter>
+  <BrowserRouter basename="/react">
     <Switch>
       <Route path='/' exact={true} component={Home} />
       <Route path='/sobre' component={Sobre} />

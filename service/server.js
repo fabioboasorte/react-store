@@ -23,7 +23,7 @@ app.get("/", (req, res, next) => {
 //Lista todos os autores
 app.get("/api/autor", (req, res, next) => {
 
-    var sql = "select * from autor"
+    var sql = "select * from autor ORDER BY id DESC"
     var params = []
     db.all(sql, params, (err, rows) => {
         if (err) {
