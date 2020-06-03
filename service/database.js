@@ -12,10 +12,9 @@ let db = new sqlite3.Database(DBSOURCE, (err) => {
         console.log('Connected to the SQLite database.')
         db.run(`CREATE TABLE autor (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
-            nome text UNIQUE, 
+            nome text, 
             livro text , 
-            preco INTERGER, 
-            CONSTRAINT nome_unique UNIQUE (nome)
+            preco INTERGER
             )`,
         (err) => {
             if (err) {
