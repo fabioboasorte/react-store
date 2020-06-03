@@ -18,6 +18,12 @@ const ApiService = {
             .then(res => res.json());
     },
     
+    ListaAutor: id => {
+        return fetch(`http://localhost:8000/api/autor/${id}`)
+            .then(res => ApiService.TrataErros(res))
+            .then(res => res.json());
+    },
+    
     ListaLivros: () => {
         return fetch('http://localhost:8000/api/autor/livro')
             .then(res => ApiService.TrataErros(res))

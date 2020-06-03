@@ -9,6 +9,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
+import IconButton from '@material-ui/core/IconButton';
+import CreateIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@material-ui/core/Button';
 
@@ -20,7 +22,7 @@ import Button from '@material-ui/core/Button';
 
 const TabelaHome = props => {
 
-  const { autores, removeAutor } = props;
+  const { autores, removeAutor, editaAutor } = props;
 
   // const classes = useStyles();
 
@@ -32,7 +34,7 @@ const TabelaHome = props => {
             <TableCell>Autores</TableCell>
             <TableCell>Livros</TableCell>
             <TableCell align="center">Preços</TableCell>
-            <TableCell align="center">Remover</TableCell>
+            <TableCell align="center"></TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -42,13 +44,20 @@ const TabelaHome = props => {
               <TableCell>{item.livro}</TableCell>
               <TableCell align="center">{item.preco}</TableCell>
               <TableCell align="center">
-                <Button
-                  variant="contained"
-                  color="secondary"
-                  startIcon={<DeleteIcon />}
+                <IconButton 
+                  color="primary" 
+                  aria-label="edit" 
+                  component="span" 
+                  onClick={() => { editaAutor(item.id) }}>
+                    <CreateIcon />
+                </IconButton>
+                <IconButton 
+                  color="secondary" 
+                  aria-label="delete" 
+                  component="span" 
                   onClick={() => { removeAutor(item.id) }}>
-                  Remover
-                  </Button>
+                    <DeleteIcon />
+                </IconButton>
               </TableCell>
             </TableRow>
           ))}

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import FormValidator from '../Utils/FormValidator';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
@@ -72,6 +72,19 @@ class Formulario extends Component {
       });
 
       window.toastOpen({ messages: messages, severity: 'error' });
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.props.liveEdit[0]) {
+
+      this.setState({
+        nome: this.props.liveEdit[0].nome,
+        livro: this.props.liveEdit[0].livro,
+        preco: this.props.liveEdit[0].preco,
+      });
+
+      delete this.props.liveEdit[0];
     }
   }
 

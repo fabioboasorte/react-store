@@ -16,6 +16,7 @@ class Home extends Component {
 
     this.state = {
       autores: [],
+      liveEdit: []
     };
   }
 
@@ -32,6 +33,17 @@ class Home extends Component {
         if (res.message === 'deleted') {
           this.setState({ autores: [...autoresAtualizado] })
           window.toastOpen({ messages: [{msg:'Item removido com sucesso'}], severity: 'success' });
+        }
+      })
+      .catch(() => window.toastOpen({ messages: [{msg:'Problema na comunicação com a Api.'}], severity: 'error' }));
+  }
+
+  editaAutor = id => {
+
+    ApiService.ListaAutor(id)
+      .then(res => {
+        if (res.message === 'success') {
+          this.setState({ liveEdit: [res.data] });
         }
       })
       .catch(() => window.toastOpen({ messages: [{msg:'Problema na comunicação com a Api.'}], severity: 'error' }));
@@ -67,11 +79,15 @@ class Home extends Component {
         <Header />
         <Container maxWidth="lg">
           <h1>ReactStore</h1>
+          <Formulario 
+            liveEdit={this.state.liveEdit} 
+            submitListener={this.submitListener} 
+          />
           <TabelaHome
             autores={this.state.autores}
             removeAutor={this.removeAutor}
+            editaAutor={this.editaAutor}
           />
-          <Formulario submitListener={this.submitListener} />
         </Container>
         <Footer />
       </React.Fragment>
