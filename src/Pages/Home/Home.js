@@ -42,7 +42,7 @@ class Home extends Component {
     ApiService.CriaAutor(JSON.stringify(autor))
       .then(res => {
         if (res.message === 'success') {
-          this.setState({ autores: [...this.state.autores, autor] });
+          this.setState({ autores: [...this.state.autores, res.data] });
           window.toastOpen({ messages: [{msg:'Novo item adicionado com sucesso!'}], severity: 'success' });
         }
       })
@@ -50,6 +50,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
+    
     ApiService.ListaAutores()
       .then(res => {
         if (res.message === 'success') {
