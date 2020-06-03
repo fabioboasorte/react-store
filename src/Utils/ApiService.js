@@ -1,37 +1,46 @@
+/* dev */
+// const serviceUrl = 
+//     'http://localhost:9000/.netlify/functions/api/autor';
+
+/* prod */
+const serviceUrl = 
+        'https://fbr-react-service.netlify.app/.netlify/functions/api/autor';
+
+
 const ApiService = {
     
     ListaAutores: () => {
-        return fetch('http://localhost:8000/api/autor')
+        return fetch(`${serviceUrl}`)
             .then(res => ApiService.TrataErros(res))
             .then(res => res.json());
     },
 
     CriaAutor: autor => {
-        return fetch('http://localhost:8000/api/autor', {method: 'POST', headers: {'content-type': 'application/json'}, body: autor})
+        return fetch(`${serviceUrl}`, {method: 'POST', headers: {'content-type': 'application/json'}, body: autor})
             .then(res => ApiService.TrataErros(res))
             .then(res => res.json());
     },
 
     ListaNomes: () => {
-        return fetch('http://localhost:8000/api/autor/nome')
+        return fetch(`${serviceUrl}/nome`)
             .then(res => ApiService.TrataErros(res))
             .then(res => res.json());
     },
     
     ListaAutor: id => {
-        return fetch(`http://localhost:8000/api/autor/${id}`)
+        return fetch(`${serviceUrl}/${id}`)
             .then(res => ApiService.TrataErros(res))
             .then(res => res.json());
     },
     
     ListaLivros: () => {
-        return fetch('http://localhost:8000/api/autor/livro')
+        return fetch(`${serviceUrl}/livro`)
             .then(res => ApiService.TrataErros(res))
             .then(res => res.json());
     },
 
     RemoveAutor: id => {
-        return fetch(`http://localhost:8000/api/autor/${id}`, {method: 'DELETE', Headers: {'content-type': 'application/json'}})
+        return fetch(`${serviceUrl}/${id}`, {method: 'DELETE', Headers: {'content-type': 'application/json'}})
             .then(res => ApiService.TrataErros(res))
             .then(res => res.json());
     },
