@@ -6,6 +6,7 @@ import Home from './Pages/Home/Home';
 import Sobre from './Pages/Sobre';
 import Livros from './Pages/Livros';
 import Autores from './Pages/Autores';
+import Login from './Pages/Login';
 import NotFound from './Pages/NotFound';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
@@ -18,6 +19,7 @@ ReactDOM.render(
       <Route path='/sobre' component={Sobre} />
       <Route path='/livros' component={Livros} />
       <Route path='/autores' component={Autores} />
+      <Route path='/login' component={Login} />
       <Route component={NotFound} />
     </Switch>
   </BrowserRouter>

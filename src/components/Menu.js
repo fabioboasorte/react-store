@@ -14,6 +14,8 @@ import PersonIcon from '@material-ui/icons/Person';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import HelpIcon from '@material-ui/icons/Help';
 
+import { Link } from 'react-router-dom'
+
 const useStyles = makeStyles({
 	list: {
 		width: 250,
@@ -21,10 +23,16 @@ const useStyles = makeStyles({
 	fullList: {
 		width: 'auto',
 	},
+	item: {
+		color: 'rgba(0, 0, 0, 0.54)',
+		textDecoration: 'none'
+	}
 });
 
 export default function Menu() {
+
 	const classes = useStyles();
+
 	const [state, setState] = React.useState({
 		top: false,
 		left: false,
@@ -51,32 +59,40 @@ export default function Menu() {
 			
 			<List>
 
-				<ListItem button component="a" href="/">
+				<ListItem>
 					<ListItemIcon>
 						<HomeIcon />
 					</ListItemIcon>
-					<ListItemText primary='Home' />
+					<Link className={classes.item} to="/">
+						<ListItemText primary='Home' />
+					</Link>
 				</ListItem>
 
-				<ListItem button component="a" href="/autores">
+				<ListItem>
 					<ListItemIcon>
 						<PersonIcon />
 					</ListItemIcon>
-					<ListItemText primary='Autores' />
+					<Link className={classes.item} to="/autores">
+						<ListItemText primary='Autores' />
+					</Link>
 				</ListItem>
 
-				<ListItem button component="a" href="/livros">
+				<ListItem>
 					<ListItemIcon>
 						<MenuBookIcon />
 					</ListItemIcon>
-					<ListItemText primary='Livros' />
+					<Link className={classes.item} to="/livros">
+						<ListItemText primary='Livros' />
+					</Link>
 				</ListItem>
 
-				<ListItem button component="a" href="/sobre">
+				<ListItem>
 					<ListItemIcon>
 						<HelpIcon />
 					</ListItemIcon>
-					<ListItemText primary='Sobre' />
+					<Link className={classes.item} to="/sobre">
+						<ListItemText primary='Sobre' />
+					</Link>
 				</ListItem>
 				
 			</List>

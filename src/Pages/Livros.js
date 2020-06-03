@@ -2,40 +2,21 @@ import React, { Component, Fragment } from 'react';
 import Header from '../Components/Header';
 import PopUp from '../Utils/PopUp';
 import ApiService from '../Utils/ApiService';
+import TabelaSimples from '../Components/Tabela/TabelaSimples';
+import Container from '@material-ui/core/Container';
 
-const TableBody = props => {
-
-	const linhas = props.livros.map((linha) => {
-		return (
-			<tr key={linha.id}>
-				<td>{linha.livro}</td>
-			</tr>
-		)
-	});
-
-	return (
-		<tbody>
-			{linhas}
-		</tbody>
-	);
-}
-
-class Autores extends Component {
+class Livros extends Component {
 
 	constructor(props) {
 		super(props);
-
-		this.state = {
-			livros: [],
-			titulo: 'Livros'
-		}
+		this.state = { data: [] }
 	}
 
 	componentDidMount() {
 		ApiService.ListaLivros()
 			.then(res => {
 				if (res.message === 'success') {
-					this.setState({ livros : [...this.state.livros, ...res.data] });
+					this.setState({ data: [...this.state.data, ...res.data] });
 				}
 			})
 			.catch(() => PopUp.show('error', 'Problema na comunicação com a Api.'));
@@ -46,20 +27,17 @@ class Autores extends Component {
 		return (
 			<Fragment>
 				<Header />
-				<div className="container">
+				<Container maxWidth="lg">
 					<h1>Livros</h1>
-					<table className="highlight centered">
-						<thead>
-							<tr>
-								<th>Livros</th>
-							</tr>
-						</thead>
-						<TableBody livros={this.state.livros} />
-					</table>
-				</div>
+					<TabelaSimples
+						titulo='Livros'
+						field='livro'
+						dados={this.state.data}
+					/>
+				</Container>
 			</Fragment>
 		);
 	}
 }
 
-export default Autores;
+export default Livros;
